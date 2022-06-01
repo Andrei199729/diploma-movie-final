@@ -1,0 +1,17 @@
+.about-me__row {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 550px) {
+    .about-me__row {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-me__row {
+        align-items: stretch;
+    }
+}

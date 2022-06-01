@@ -1,0 +1,23 @@
+.portfolio__subtitle {
+    margin: 100px 0 50px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    color: #A0A0A0;
+    mix-blend-mode: normal;
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio__subtitle {
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .portfolio__subtitle {
+        margin-top: 0;
+        font-size: 14px;
+    }
+}

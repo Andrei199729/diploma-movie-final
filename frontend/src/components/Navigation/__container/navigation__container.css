@@ -1,0 +1,9 @@
+.navigation__container {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .navigation__container {
+        display: none;
+    }
+}

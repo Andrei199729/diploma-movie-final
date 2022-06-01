@@ -1,0 +1,22 @@
+.navigation__row-container {
+    max-width: 1280px;
+    margin: 0 70px 0;
+    padding: 21px 0 23px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .navigation__row-container {
+        margin: 0 30px;
+        padding: 18px 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .navigation__row-container {
+        margin: 0 14px;
+        padding: 18px 0;
+    }
+}

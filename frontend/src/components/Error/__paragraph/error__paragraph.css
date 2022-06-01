@@ -1,0 +1,18 @@
+.error__paragraph {
+    margin: 0 0 184px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #000000;
+}
+
+@media screen and (max-width: 320px) {
+    .error__paragraph {
+        margin: 0 0 284px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

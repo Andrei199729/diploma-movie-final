@@ -1,0 +1,10 @@
+.filter-checkbox__label {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 22px;
+}
+
+.filter-checkbox__label .filter-checkbox__input {
+    display: none;
+}

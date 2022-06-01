@@ -1,0 +1,23 @@
+.promo {
+    display: flex;
+    max-width: 100%;
+    background-color: #465DFF;
+    background-image: url(../../images/landing_logo.svg);
+    background-repeat: no-repeat;
+    background-size: 320px 320px;
+    background-position: 50% 50%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@media screen and (max-width: 400px) {
+    .promo {
+        background-size: 280px 280px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .promo {
+        background-size: 248px 248px;
+    }
+}

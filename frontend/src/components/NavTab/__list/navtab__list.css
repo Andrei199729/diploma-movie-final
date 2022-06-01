@@ -1,0 +1,28 @@
+.navtab__list {
+    margin-left: 40px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    align-items: center;
+    text-decoration-line: underline;
+    color: #000000;
+    opacity: 1;
+    transition: font-size .3s linear;
+}
+
+.navtab__list:hover {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 320px) {
+    .navtab__list {
+        margin-left: 24px;
+        font-size: 11px;
+    }
+
+    .navtab__list:hover {
+        font-size: 14px;
+    }
+}

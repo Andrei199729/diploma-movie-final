@@ -1,0 +1,15 @@
+.search__container {
+    margin: 70px 70px 48px;
+}
+
+@media screen and (max-width: 768px) {
+    .search__container {
+        margin: 80px 30px 61px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .search__container {
+        margin: 90px 14px 51px;
+    }
+}

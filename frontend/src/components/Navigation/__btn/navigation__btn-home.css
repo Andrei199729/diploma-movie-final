@@ -1,0 +1,36 @@
+.navigation__btn-home {
+    position: relative;
+    cursor: pointer;
+}
+
+.navigation__btn-home:after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: #000000;
+    transition: width 0.5s;
+}
+
+.navigation__btn-home:hover:after {
+    content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 2px;
+    background-color: #000000;
+    transition: width 0.5s;
+}
+
+@media screen and (max-width: 768px) {
+    .navigation__btn-home {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 28px;
+    }
+}
