@@ -14,7 +14,10 @@ function Profile(props) {
   const [dataError, setDataError] = useState(
     "Что-то пошло не так. Имя не должно быть пустым или некорректный Email"
   );
+
   const [formValid, setFormValid] = useState(false);
+  const disabledBtn =
+    currentUser.email === emailProfile && currentUser.name === nameProfile;
 
   const edit = "Редактировать";
   const save = "Сохранить";
@@ -146,7 +149,10 @@ function Profile(props) {
             <div className="error-form">{dataError}</div>
           )}
           {!readOnly ? (
-            <BtnSaveProfile saveText={save} onDisabled={!formValid} />
+            <BtnSaveProfile
+              saveText={save}
+              onDisabled={!formValid || disabledBtn}
+            />
           ) : (
             <BtnEditProfile editText={edit} onHandleClick={handleClickEdit} />
           )}

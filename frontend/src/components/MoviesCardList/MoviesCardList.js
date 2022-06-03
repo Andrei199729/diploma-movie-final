@@ -72,14 +72,10 @@ function MoviesCardList(props) {
                 />
               );
             })}
-        {(pathMovies && props.movies && props.movies.length === 0) || //изменение
-        (pathMovies && props.shortMovies && props.shortMovies.length === 0) || //изменение
+        {(pathMovies && props.movies && props.movies.length === 0) ||
         (pathSavedMovies &&
           props.saveMovies &&
-          props.saveMovies.length === 0) || //изменение
-        (pathSavedMovies &&
-          props.shortMovies &&
-          props.shortMovies.length === 0) ? ( //изменение
+          props.saveMovies.length === 0) ? (
           <p className="movies-not-found">{notFilms}</p>
         ) : null}
       </div>

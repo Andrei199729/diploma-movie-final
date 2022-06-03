@@ -7,7 +7,7 @@ function FilterCheckbox(props) {
         <input
           className="filter-checkbox__input"
           type="checkbox"
-          onChange={props.checkShortFilms}
+          onChange={props.checkShort}
           checked={props.onChecked}
         />
         <span className="filter-checkbox__slider filter-checkbox__round"></span>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -37,59 +38,16 @@ function App() {
   const [isData, setData] = useState({});
   const [loaded, setLoaded] = useState(true);
   const [isFiltered, setIsFiltered] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checkedFilms, setCheckedFilms] = useState(false);
+  const [checkedSaveFilms, setCheckedSaveFilms] = useState(false);
   const [permissonCheck, setPermissonCheck] = useState(false);
   const [isInfoTooltip, setInfoTooltip] = useState(false);
   const pathHeadersArray = ["/", "/movies", "/saved-movies", "/profile"];
   const pathFootersArray = ["/", "/movies", "/saved-movies"];
-
+  const pathMovies = location.pathname === "/movies";
+  const pathMoviesSave = location.pathname === "/saved-movies";
   const pathHeaders = pathHeadersArray.includes(location.pathname);
   const pathFooters = pathFootersArray.includes(location.pathname);
-
-  // Загрузка данных пользователя и фильмов
-  useEffect(() => {
-    setLoaded(true);
-    setTimeout(() => {
-      if (loggedIn) {
-        Promise.all([
-          moviesApi.getMovies(),
-          mainApi.getAboutUser(),
-          mainApi.getSaveMovies(),
-        ])
-          .then(([movies, user, saveMovies]) => {
-            setCurrentUser(user);
-            const userSaveMovie = saveMovies.filter(
-              (movie) => movie.owner === user._id
-            );
-            localStorage.setItem("saveMovies", JSON.stringify(userSaveMovie));
-            setSaveMovies(JSON.parse(localStorage.getItem("saveMovies")));
-            localStorage.setItem("movies", JSON.stringify(movies));
-            setMovies(JSON.parse(localStorage.getItem("movies")));
-            setLoaded(false);
-          })
-          .catch((err) => console.log(err));
-      }
-    }, 1000);
-  }, [loggedIn]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setPermissonCheck(true);
-      return;
-    }
-    checkToken();
-    setPermissonCheck(true);
-    setLoggedIn(true);
-  }, []);
-
-  // Обновление короткометражек
-  useEffect(() => {
-    setShortMovies(JSON.parse(localStorage.getItem("durationMovieShort")));
-    setShortMoviesSave(
-      JSON.parse(localStorage.getItem("durationMovieShortSave"))
-    );
-  }, [movies]);
 
   // проверка токенов авторизованных пользователей, вернувшихся в приложение
 
@@ -106,10 +64,76 @@ function App() {
         .catch((err) => {
           console.log(err);
           localStorage.removeItem("token");
+          handleInfoTooltip({
+            union: unionFalse,
+            text: "Ошибка токена",
+          });
         });
     }
   }
 
+  // Загрузка данных пользователя и фильмов
+  useEffect(() => {
+    setLoaded(true);
+    setTimeout(() => {
+      if (loggedIn) {
+        Promise.all([
+          moviesApi.getMovies(),
+          mainApi.getAboutUser(),
+          mainApi.getSaveMovies(),
+        ])
+          .then(([movies, user, saveMovies]) => {
+            localStorage.setItem("user", JSON.stringify(user));
+            setCurrentUser(JSON.parse(localStorage.getItem("user")));
+            const userSaveMovie = saveMovies.filter(
+              (movie) => movie.owner === user._id
+            );
+            localStorage.setItem("saveMovies", JSON.stringify(userSaveMovie));
+            setSaveMovies(JSON.parse(localStorage.getItem("saveMovies")));
+            localStorage.setItem("movies", JSON.stringify(movies));
+            setMovies(JSON.parse(localStorage.getItem("movies")));
+            setLoaded(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            handleInfoTooltip({
+              union: unionFalse,
+              text: "Ошибка обновления данных",
+            });
+          });
+      }
+    }, 1000);
+  }, [loggedIn]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setPermissonCheck(true);
+      return;
+    }
+    checkToken();
+    setPermissonCheck(true);
+    setLoggedIn(true);
+    setCheckedFilms(JSON.parse(localStorage.getItem("checkedFilms")));
+    setCheckedSaveFilms(JSON.parse(localStorage.getItem("checkedSaveFilms")));
+  }, []);
+
+  // Обновление короткометражек
+  useEffect(() => {
+    setShortMovies(JSON.parse(localStorage.getItem("durationMovieShort")));
+    setShortMoviesSave(
+      JSON.parse(localStorage.getItem("durationMovieShortSave"))
+    );
+  }, [checkedFilms, checkedSaveFilms]);
+  useEffect(() => {
+    const handleWindowLoad = () => {
+      setLoggedIn(false);
+    };
+
+    window.addEventListener("load", handleWindowLoad);
+
+    return () => window.removeEventListener("load", handleWindowLoad);
+  }, []);
   // Закрытие попапа уведомления
   function closeAllPopups() {
     setInfoTooltip(false);
@@ -126,30 +150,42 @@ function App() {
     const moviesFilter = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(search.toLowerCase());
     });
-    const moviesShortFilter = shortMovies.filter((movie) => {
+    const moviesShortFilter = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(search.toLowerCase());
     });
+    localStorage.setItem("moviesSearch", JSON.stringify(moviesFilter));
+    localStorage.setItem(
+      "moviesSearchShort",
+      JSON.stringify(moviesShortFilter)
+    );
     setTimeout(() => {
       setLoaded(false);
-      setFilterMovies(moviesFilter);
-      setFilterShortMovies(moviesShortFilter);
+      setFilterMovies(JSON.parse(localStorage.getItem("moviesSearch")));
+      setFilterShortMovies(
+        JSON.parse(localStorage.getItem("moviesSearchShort"))
+      );
       setIsFiltered(true);
     }, 450);
   }
 
   // Сохранение фильма
   function handleSaveMovie(movieData) {
+    setSaveMovies([...saveMovies, movieData]);
     mainApi
       .saveMovie(movieData)
       .then((newMovie) => {
-        setSaveMovies([newMovie, ...saveMovies]);
+        setSaveMovies([...saveMovies, newMovie]);
         localStorage.setItem(
           "saveMovies",
-          JSON.stringify([newMovie, ...saveMovies])
+          JSON.stringify([...saveMovies, newMovie])
         );
       })
       .catch((err) => {
         console.log(err);
+        handleInfoTooltip({
+          union: unionFalse,
+          text: "Ошибка сохранения фильма",
+        });
       });
   }
 
@@ -158,13 +194,20 @@ function App() {
     const moviesSaveFilter = saveMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(search.toLowerCase());
     });
-    const moviesSaveShortFilter = saveMovies.filter((movie) => {
+    const moviesSaveShortFilter = shortMoviesSave.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(search.toLowerCase());
     });
+    localStorage.setItem("moviesSearchSave", JSON.stringify(moviesSaveFilter));
+    localStorage.setItem(
+      "moviesSearchShortSave",
+      JSON.stringify(moviesSaveShortFilter)
+    );
     setTimeout(() => {
       setLoaded(false);
-      setFilterSaveMovies(moviesSaveFilter);
-      setFilterShortSaveMovies(moviesSaveShortFilter);
+      setFilterSaveMovies(JSON.parse(localStorage.getItem("moviesSearchSave")));
+      setFilterShortSaveMovies(
+        JSON.parse(localStorage.getItem("moviesSearchShortSave"))
+      );
       setIsFiltered(true);
     }, 450);
   }
@@ -184,6 +227,8 @@ function App() {
           union: unionTrue,
           text: "Фильм удален",
         });
+        localStorage.removeItem("saveMovies", JSON.stringify(newCardsArr));
+        localStorage.removeItem("saveMovies", JSON.stringify(newSavedCardsArr));
       })
       .catch((err) => {
         console.log(err);
@@ -199,12 +244,14 @@ function App() {
     auth
       .register(nameRegister, emailRegister, passwordRegister)
       .then((res) => {
+        console.log(emailRegister, passwordRegister);
         if (res) {
           handleInfoTooltip({
             union: unionTrue,
             text: "Вы успешно зарегистрировались!",
           });
-          history.push("/signin");
+          handleAuthorization(emailRegister, passwordRegister);
+          history.push("/movies");
         }
       })
       .catch((err) => {
@@ -253,6 +300,7 @@ function App() {
           union: unionTrue,
           text: "Профиль обновлен ",
         });
+        localStorage.setItem("user", JSON.stringify(user));
       })
       .catch((err) => {
         console.log(`Внимание! ${err}`);
@@ -267,7 +315,7 @@ function App() {
   function checkShortFilms(e) {
     setLoaded(true);
     setTimeout(() => {
-      if (checked) {
+      if (!localStorage.getItem("checkedFilms")) {
         const durationMovieShort = movies.filter(
           (movie) => movie.duration <= 40
         );
@@ -275,11 +323,13 @@ function App() {
           "durationMovieShort",
           JSON.stringify(durationMovieShort)
         );
+        localStorage.setItem("checkedFilms", JSON.stringify(!checkedFilms));
         setShortMovies(JSON.parse(localStorage.getItem("durationMovieShort")));
-        setChecked(!checked);
+        setCheckedFilms(JSON.parse(localStorage.getItem("checkedFilms")));
       } else {
+        localStorage.setItem("checkedFilms", JSON.stringify(!checkedFilms));
         setMovies(movies);
-        setChecked(!checked);
+        setCheckedFilms(JSON.parse(localStorage.getItem("checkedFilms")));
       }
       setLoaded(false);
     }, 450);
@@ -289,11 +339,10 @@ function App() {
   function checkShortFilmsSave(e) {
     setLoaded(true);
     setTimeout(() => {
-      if (checked) {
+      if (!localStorage.getItem("checkedSaveFilms")) {
         const durationMovieShortSave = saveMovies.filter(
           (movie) => movie.duration <= 40
         );
-        console.log("Save", durationMovieShortSave);
         localStorage.setItem(
           "durationMovieShortSave",
           JSON.stringify(durationMovieShortSave)
@@ -301,10 +350,22 @@ function App() {
         setShortMoviesSave(
           JSON.parse(localStorage.getItem("durationMovieShortSave"))
         );
-        setChecked(!checked);
+        localStorage.setItem(
+          "checkedSaveFilms",
+          JSON.stringify(!checkedSaveFilms)
+        );
+        setCheckedSaveFilms(
+          JSON.parse(localStorage.getItem("checkedSaveFilms"))
+        );
       } else {
         setSaveMovies(saveMovies);
-        setChecked(!checked);
+        localStorage.setItem(
+          "checkedSaveFilms",
+          JSON.stringify(!checkedSaveFilms)
+        );
+        setCheckedSaveFilms(
+          JSON.parse(localStorage.getItem("checkedSaveFilms"))
+        );
       }
       setLoaded(false);
     }, 450);
@@ -315,9 +376,12 @@ function App() {
     localStorage.clear();
     setLoggedIn(false);
     setCurrentUser([]);
-    setSaveMovies([]);
+    setCheckedFilms(false);
+    setCheckedSaveFilms(false);
     setFilterMovies([]);
+    setFilterShortMovies([]);
     setFilterSaveMovies([]);
+    setFilterShortSaveMovies([]);
     history.push("/");
   }
 
@@ -344,8 +408,9 @@ function App() {
           saveMovies={saveMovies}
           handleDeleteSaveMovie={(movie) => handleDeleteSaveMovie(movie)}
           checkShortFilms={checkShortFilms}
-          onChecked={checked}
+          onCheckedFilms={checkedFilms}
           shortMovies={shortMovies}
+          pathMovies={pathMovies}
         />
         <ProtectedRoute
           path="/saved-movies"
@@ -358,9 +423,10 @@ function App() {
           handleDeleteSaveMovie={handleDeleteSaveMovie}
           saveFilterSaveMovies={saveFilterSaveMovies}
           filterShortSaveMovies={filterShortSaveMovies}
-          checkShortFilms={checkShortFilmsSave}
-          onChecked={checked}
+          checkShortFilmsSave={checkShortFilmsSave}
+          onCheckedSaveFilms={checkedSaveFilms}
           shortMovies={shortMoviesSave}
+          pathMoviesSave={pathMoviesSave}
         />
         <ProtectedRoute
           path="/profile"

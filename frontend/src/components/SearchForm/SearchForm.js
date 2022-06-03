@@ -62,10 +62,18 @@ function SearchForm(props) {
           <img className="search-form__btn-find" src={Find} alt="Поиск" />
         </button>
       </form>
-      <FilterCheckbox
-        checkShortFilms={props.checkShortFilms}
-        onChecked={props.onChecked}
-      />
+      {props.pathMovies && (
+        <FilterCheckbox
+          checkShort={props.checkShortFilms}
+          onChecked={props.onCheckedFilms}
+        />
+      )}
+      {props.pathMoviesSave && (
+        <FilterCheckbox
+          checkShort={props.checkShortFilmsSave}
+          onChecked={props.onCheckedSaveFilms}
+        />
+      )}
     </div>
   );
 }

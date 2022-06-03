@@ -11,7 +11,8 @@ function Movies(props) {
         movies={props.movies}
         enterHandler={props.handleEnter}
         checkShortFilms={props.checkShortFilms}
-        onChecked={props.onChecked}
+        onCheckedFilms={props.onCheckedFilms}
+        pathMovies={props.pathMovies}
       />
       {props.loaded ? (
         <Preloader />
@@ -24,7 +25,7 @@ function Movies(props) {
           onSaveMovie={props.handleSaveMovie}
           saveMovies={props.saveMovies}
           handleDeleteSaveMovie={props.handleDeleteSaveMovie}
-          onChecked={props.onChecked}
+          onChecked={props.onCheckedFilms}
         />
       )}
     </div>

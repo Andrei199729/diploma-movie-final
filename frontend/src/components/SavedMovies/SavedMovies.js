@@ -8,8 +8,9 @@ function SavedMovies(props) {
     <div className="movies">
       <SearchForm
         enterHandler={props.handleSearchSaveMovie}
-        checkShortFilms={props.checkShortFilms}
-        onChecked={props.onChecked}
+        checkShortFilmsSave={props.checkShortFilmsSave}
+        onCheckedSaveFilms={props.onCheckedSaveFilms}
+        pathMoviesSave={props.pathMoviesSave}
       />
       {props.loaded ? (
         <Preloader />
@@ -23,7 +24,7 @@ function SavedMovies(props) {
             props.isFiltered ? props.filterShortSaveMovies : props.shortMovies
           }
           onSaveMovie={props.handleSaveMovie}
-          onChecked={props.onChecked}
+          onChecked={props.onCheckedSaveFilms}
         />
       )}
     </div>
