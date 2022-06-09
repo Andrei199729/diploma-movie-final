@@ -36,7 +36,8 @@ function MoviesCardList(props) {
     <section className="movies-card-list">
       <div className="movies-card-list__container">
         {props.onChecked
-          ? props.shortMovies.map((shortMovie) => {
+          ? props.shortMovies === null ||
+            props.shortMovies.map((shortMovie) => {
               return (
                 <MoviesCard
                   key={shortMovie.id || shortMovie.movieId}
@@ -60,7 +61,8 @@ function MoviesCardList(props) {
                 />
               );
             })
-          : props.movies.slice(0, countMovies).map((movie) => {
+          : props.movies === null ||
+            props.movies.slice(0, countMovies).map((movie) => {
               return (
                 <MoviesCard
                   key={movie.id || movie.movieId}
@@ -72,6 +74,7 @@ function MoviesCardList(props) {
                 />
               );
             })}
+
         {(pathMovies && props.movies && props.movies.length === 0) ||
         (pathSavedMovies &&
           props.saveMovies &&

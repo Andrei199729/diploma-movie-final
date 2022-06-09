@@ -17,12 +17,10 @@ function SavedMovies(props) {
       ) : (
         <MoviesCardList
           saveMovies={
-            props.isFiltered ? props.saveFilterSaveMovies : props.saveMovies
+            props.isFilteredSave ? props.saveFilterSaveMovies : props.saveMovies
           }
           handleDeleteSaveMovie={props.handleDeleteSaveMovie}
-          shortMovies={
-            props.isFiltered ? props.filterShortSaveMovies : props.shortMovies
-          }
+          shortMovies={props.shortMovies}
           onSaveMovie={props.handleSaveMovie}
           onChecked={props.onCheckedSaveFilms}
         />

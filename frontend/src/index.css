@@ -171,6 +171,7 @@
 @import url(./blocks/error-form/error-form.css);
 @import url(./blocks/error-form/__search/error-form__search.css);
 @import url(./blocks/error-form/_margin/error-form_margin.css);
+@import url(./blocks/error-form/__profile/error-form__profile.css);
 
 /* PopupTooltip */
 

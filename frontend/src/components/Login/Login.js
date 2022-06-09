@@ -10,7 +10,6 @@ function Login(props) {
     "Что-то пошло не так. Некорректный Email или неверный пароль"
   );
   const [formValid, setFormValid] = useState(false);
-
   useEffect(() => {
     if (dataError) {
       setFormValid(false);

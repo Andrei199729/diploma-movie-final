@@ -3,14 +3,20 @@ import Find from "../../images/find.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm(props) {
-  const [searchFilmValue, setSearchFilmValue] = useState("");
+  const [searchFilmValue, setSearchFilmValue] = useState(
+    props.valueSearch || ""
+  );
   const [searchFilmError, setSearchFilmError] = useState(
     "Нужно ввести ключевое слово"
   );
+
   const [searchFilmDirty, setSearchFilmDirty] = useState(false);
 
   function handleChangeSearchFilm(e) {
-    setSearchFilmValue(e.target.value);
+    e.preventDefault();
+    localStorage.setItem("moviesSearchValue", JSON.stringify(e.target.value));
+    setSearchFilmValue(JSON.parse(localStorage.getItem("moviesSearchValue")));
+
     if (!e.target.validity.valid && e.target.value.length === 0) {
       setSearchFilmError("Нужно ввести ключевое слово");
     } else {
@@ -19,9 +25,8 @@ function SearchForm(props) {
   }
 
   function handleEnter(event) {
-    if (event.key === "Enter") {
-      props.enterHandler(searchFilmValue);
-    }
+    event.preventDefault();
+    props.enterHandler(searchFilmValue);
   }
 
   function blurHandler(e) {
@@ -36,7 +41,11 @@ function SearchForm(props) {
 
   return (
     <div className="search__container">
-      <form className="search-form" name="formsearchmovie">
+      <form
+        className="search-form"
+        name="formsearchmovie"
+        onSubmit={handleEnter}
+      >
         <input
           className="search-form__input"
           type="text"
@@ -44,21 +53,17 @@ function SearchForm(props) {
           name="searchmovie"
           minLength="2"
           maxLength="40"
-          placeholder="Фильм"
           onChange={handleChangeSearchFilm}
-          onKeyUp={handleEnter}
+          onKeyUp={searchFilmValue ? null : handleEnter}
           onBlur={blurHandler}
           value={searchFilmValue || ""}
+          placeholder="Фильм"
           required
         />
         {searchFilmDirty && searchFilmError && (
           <div className="error-form error-form__search">{searchFilmError}</div>
         )}
-        <button
-          className="search-form__btn"
-          type="button"
-          onClick={() => props.enterHandler(searchFilmValue)}
-        >
+        <button className="search-form__btn" type="submit">
           <img className="search-form__btn-find" src={Find} alt="Поиск" />
         </button>
       </form>

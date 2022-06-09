@@ -21,23 +21,25 @@ import moviesApi from "../../utils/MoviesApi";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import unionTrue from "../../images/union.svg";
 import unionFalse from "../../images/unionerror.svg";
+import BlockRouteUser from "../BlockRouteUser/BlockRouteUser";
 
 function App() {
+  const valueData = JSON.parse(localStorage.getItem("moviesSearchValue"));
   const location = useLocation();
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
   const [filterMovies, setFilterMovies] = useState([]);
-  const [filterShortMovies, setFilterShortMovies] = useState([]);
-  const [filterShortSaveMovies, setFilterShortSaveMovies] = useState([]);
   const [saveMovies, setSaveMovies] = useState([]);
   const [saveFilterSaveMovies, setFilterSaveMovies] = useState([]);
   const [shortMovies, setShortMovies] = useState([]);
   const [shortMoviesSave, setShortMoviesSave] = useState([]);
   const [isData, setData] = useState({});
+  const [valueSearch, setValueSearch] = useState(valueData);
   const [loaded, setLoaded] = useState(true);
   const [isFiltered, setIsFiltered] = useState(false);
+  const [isFilteredSave, setIsFilteredSave] = useState(false);
   const [checkedFilms, setCheckedFilms] = useState(false);
   const [checkedSaveFilms, setCheckedSaveFilms] = useState(false);
   const [permissonCheck, setPermissonCheck] = useState(false);
@@ -48,9 +50,7 @@ function App() {
   const pathMoviesSave = location.pathname === "/saved-movies";
   const pathHeaders = pathHeadersArray.includes(location.pathname);
   const pathFooters = pathFootersArray.includes(location.pathname);
-
   // проверка токенов авторизованных пользователей, вернувшихся в приложение
-
   function checkToken() {
     const token = localStorage.getItem("token");
     if (token) {
@@ -89,9 +89,10 @@ function App() {
               (movie) => movie.owner === user._id
             );
             localStorage.setItem("saveMovies", JSON.stringify(userSaveMovie));
-            setSaveMovies(JSON.parse(localStorage.getItem("saveMovies")));
             localStorage.setItem("movies", JSON.stringify(movies));
+            setSaveMovies(JSON.parse(localStorage.getItem("saveMovies")));
             setMovies(JSON.parse(localStorage.getItem("movies")));
+
             setLoaded(false);
           })
           .catch((err) => {
@@ -118,22 +119,19 @@ function App() {
     setCheckedSaveFilms(JSON.parse(localStorage.getItem("checkedSaveFilms")));
   }, []);
 
+  useEffect(() => {
+    setFilterMovies(JSON.parse(localStorage.getItem("moviesSearch")));
+    setIsFiltered(JSON.parse(localStorage.getItem("isFiltered")));
+  }, []);
+
   // Обновление короткометражек
   useEffect(() => {
     setShortMovies(JSON.parse(localStorage.getItem("durationMovieShort")));
     setShortMoviesSave(
       JSON.parse(localStorage.getItem("durationMovieShortSave"))
     );
-  }, [checkedFilms, checkedSaveFilms]);
-  useEffect(() => {
-    const handleWindowLoad = () => {
-      setLoggedIn(false);
-    };
-
-    window.addEventListener("load", handleWindowLoad);
-
-    return () => window.removeEventListener("load", handleWindowLoad);
   }, []);
+
   // Закрытие попапа уведомления
   function closeAllPopups() {
     setInfoTooltip(false);
@@ -147,24 +145,21 @@ function App() {
 
   // Поиск фильмов
   function handleEnter(search) {
-    const moviesFilter = movies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(search.toLowerCase());
-    });
-    const moviesShortFilter = movies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(search.toLowerCase());
-    });
+    const moviesFilter = movies
+      ? movies.filter((movie) => {
+          return movie.nameRU.toLowerCase().includes(search.toLowerCase());
+        })
+      : [];
     localStorage.setItem("moviesSearch", JSON.stringify(moviesFilter));
-    localStorage.setItem(
-      "moviesSearchShort",
-      JSON.stringify(moviesShortFilter)
-    );
+    localStorage.setItem("isFiltered", JSON.stringify(true));
+    localStorage.setItem("moviesSearchValue", JSON.stringify(search));
     setTimeout(() => {
       setLoaded(false);
       setFilterMovies(JSON.parse(localStorage.getItem("moviesSearch")));
-      setFilterShortMovies(
-        JSON.parse(localStorage.getItem("moviesSearchShort"))
+      setIsFiltered(JSON.parse(localStorage.getItem("isFiltered")));
+      setValueSearch(
+        JSON.parse(window.localStorage.getItem("moviesSearchValue"))
       );
-      setIsFiltered(true);
     }, 450);
   }
 
@@ -191,24 +186,16 @@ function App() {
 
   // Поиск сохраненных фильмов
   function handleSearchSaveMovie(search) {
-    const moviesSaveFilter = saveMovies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(search.toLowerCase());
-    });
-    const moviesSaveShortFilter = shortMoviesSave.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(search.toLowerCase());
-    });
-    localStorage.setItem("moviesSearchSave", JSON.stringify(moviesSaveFilter));
-    localStorage.setItem(
-      "moviesSearchShortSave",
-      JSON.stringify(moviesSaveShortFilter)
-    );
+    const moviesSaveFilter = saveMovies
+      ? saveMovies.filter((movie) => {
+          return movie.nameRU.toLowerCase().includes(search.toLowerCase());
+        })
+      : [];
+    localStorage.setItem("isFilteredSave", JSON.stringify(true));
     setTimeout(() => {
       setLoaded(false);
-      setFilterSaveMovies(JSON.parse(localStorage.getItem("moviesSearchSave")));
-      setFilterShortSaveMovies(
-        JSON.parse(localStorage.getItem("moviesSearchShortSave"))
-      );
-      setIsFiltered(true);
+      setFilterSaveMovies(moviesSaveFilter);
+      setIsFilteredSave(JSON.parse(localStorage.getItem("isFilteredSave")));
     }, 450);
   }
 
@@ -244,7 +231,6 @@ function App() {
     auth
       .register(nameRegister, emailRegister, passwordRegister)
       .then((res) => {
-        console.log(emailRegister, passwordRegister);
         if (res) {
           handleInfoTooltip({
             union: unionTrue,
@@ -270,6 +256,11 @@ function App() {
       .then((res) => {
         if (res) {
           localStorage.setItem("token", res.token);
+          localStorage.setItem("moviesSearch", JSON.stringify(filterMovies));
+          window.localStorage.setItem(
+            "moviesSearchValue",
+            JSON.stringify(valueSearch)
+          );
           setLoggedIn(true);
           handleInfoTooltip({
             union: unionTrue,
@@ -314,8 +305,9 @@ function App() {
   // Короткометражки фильмов
   function checkShortFilms(e) {
     setLoaded(true);
+    localStorage.setItem("checkedFilms", JSON.stringify(!checkedFilms));
     setTimeout(() => {
-      if (!localStorage.getItem("checkedFilms")) {
+      if (!checkedFilms) {
         const durationMovieShort = movies.filter(
           (movie) => movie.duration <= 40
         );
@@ -323,26 +315,25 @@ function App() {
           "durationMovieShort",
           JSON.stringify(durationMovieShort)
         );
-        localStorage.setItem("checkedFilms", JSON.stringify(!checkedFilms));
         setShortMovies(JSON.parse(localStorage.getItem("durationMovieShort")));
-        setCheckedFilms(JSON.parse(localStorage.getItem("checkedFilms")));
       } else {
-        localStorage.setItem("checkedFilms", JSON.stringify(!checkedFilms));
         setMovies(movies);
-        setCheckedFilms(JSON.parse(localStorage.getItem("checkedFilms")));
       }
       setLoaded(false);
     }, 450);
+    setCheckedFilms(!checkedFilms);
   }
 
   // Короткометражки сохраненных фильмов
   function checkShortFilmsSave(e) {
     setLoaded(true);
+    localStorage.setItem("checkedSaveFilms", JSON.stringify(!checkedSaveFilms));
     setTimeout(() => {
-      if (!localStorage.getItem("checkedSaveFilms")) {
+      if (!checkedSaveFilms) {
         const durationMovieShortSave = saveMovies.filter(
           (movie) => movie.duration <= 40
         );
+
         localStorage.setItem(
           "durationMovieShortSave",
           JSON.stringify(durationMovieShortSave)
@@ -350,38 +341,21 @@ function App() {
         setShortMoviesSave(
           JSON.parse(localStorage.getItem("durationMovieShortSave"))
         );
-        localStorage.setItem(
-          "checkedSaveFilms",
-          JSON.stringify(!checkedSaveFilms)
-        );
-        setCheckedSaveFilms(
-          JSON.parse(localStorage.getItem("checkedSaveFilms"))
-        );
       } else {
         setSaveMovies(saveMovies);
-        localStorage.setItem(
-          "checkedSaveFilms",
-          JSON.stringify(!checkedSaveFilms)
-        );
-        setCheckedSaveFilms(
-          JSON.parse(localStorage.getItem("checkedSaveFilms"))
-        );
       }
       setLoaded(false);
     }, 450);
+    setCheckedSaveFilms(!checkedSaveFilms);
   }
 
   // Выход
   function handleSignOut() {
-    localStorage.clear();
     setLoggedIn(false);
     setCurrentUser([]);
     setCheckedFilms(false);
     setCheckedSaveFilms(false);
-    setFilterMovies([]);
-    setFilterShortMovies([]);
-    setFilterSaveMovies([]);
-    setFilterShortSaveMovies([]);
+    localStorage.clear();
     history.push("/");
   }
 
@@ -403,7 +377,6 @@ function App() {
           isFiltered={isFiltered}
           movies={movies}
           filterMovies={filterMovies}
-          filterShortMovies={filterShortMovies}
           handleSaveMovie={handleSaveMovie}
           saveMovies={saveMovies}
           handleDeleteSaveMovie={(movie) => handleDeleteSaveMovie(movie)}
@@ -411,6 +384,7 @@ function App() {
           onCheckedFilms={checkedFilms}
           shortMovies={shortMovies}
           pathMovies={pathMovies}
+          valueSearch={valueSearch}
         />
         <ProtectedRoute
           path="/saved-movies"
@@ -418,11 +392,10 @@ function App() {
           loggedIn={loggedIn}
           loaded={loaded}
           handleSearchSaveMovie={handleSearchSaveMovie}
-          isFiltered={isFiltered}
+          isFilteredSave={isFilteredSave}
           saveMovies={saveMovies}
           handleDeleteSaveMovie={handleDeleteSaveMovie}
           saveFilterSaveMovies={saveFilterSaveMovies}
-          filterShortSaveMovies={filterShortSaveMovies}
           checkShortFilmsSave={checkShortFilmsSave}
           onCheckedSaveFilms={checkedSaveFilms}
           shortMovies={shortMoviesSave}
@@ -435,12 +408,18 @@ function App() {
           handleSignOut={handleSignOut}
           loggedIn={loggedIn}
         />
-        <Route path="/signin">
-          <Login handleAuthorization={handleAuthorization} />
-        </Route>
-        <Route path="/signup">
-          <Register handleRegistration={handleRegistration} />
-        </Route>
+        <BlockRouteUser
+          path="/signin"
+          component={Login}
+          handleAuthorization={handleAuthorization}
+          loggedIn={loggedIn}
+        />
+        <BlockRouteUser
+          path="/signup"
+          component={Register}
+          handleRegistration={handleRegistration}
+          loggedIn={loggedIn}
+        />
         <Route path="*" component={Error} />
       </Switch>
       <InfoTooltip

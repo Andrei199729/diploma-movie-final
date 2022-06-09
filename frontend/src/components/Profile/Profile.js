@@ -18,7 +18,6 @@ function Profile(props) {
   const [formValid, setFormValid] = useState(false);
   const disabledBtn =
     currentUser.email === emailProfile && currentUser.name === nameProfile;
-
   const edit = "Редактировать";
   const save = "Сохранить";
 
@@ -146,7 +145,7 @@ function Profile(props) {
             />
           </label>
           {dataDirty && dataError && (
-            <div className="error-form">{dataError}</div>
+            <div className="error-form error-form__profile">{dataError}</div>
           )}
           {!readOnly ? (
             <BtnSaveProfile
