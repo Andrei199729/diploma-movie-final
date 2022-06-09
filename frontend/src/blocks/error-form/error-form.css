@@ -1,0 +1,27 @@
+.error-form {
+  opacity: 1;
+  transition: 0.3s;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+  position: absolute;
+  bottom: 220px;
+  left: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .error-form {
+    top: 61px;
+    left: 0;
+  }
+}
+
+@media screen and (max-width: 564px) {
+  .error-form {
+    top: 50px;
+    left: 0;
+  }
+}

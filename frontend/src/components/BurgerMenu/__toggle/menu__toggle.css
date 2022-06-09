@@ -1,0 +1,43 @@
+#menu__toggle {
+  opacity: 0;
+}
+
+#menu__toggle:checked+.menu__btn>span {
+  transform: rotate(45deg);
+}
+
+#menu__toggle:checked+.menu__btn>span::before {
+  top: 0;
+  transform: rotate(0deg);
+}
+
+#menu__toggle:checked+.menu__btn>span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+#menu__toggle:checked~.menu__box {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+#menu__toggle:checked~.menu__btn {
+  position: fixed;
+}
+
+@media screen and (max-width: 768px) {
+  #menu__toggle:checked~.menu__btn {
+    top: 36px;
+    right: 27px;
+    width: 22px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #menu__toggle:checked~.menu__btn {
+    top: 27px;
+    right: 18px;
+    width: 22px;
+  }
+}

@@ -1,0 +1,16 @@
+.profile__label {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: #000000;
+    border-top: 1px solid #E8E8E8;
+}
+
+.profile__label:first-child {
+    border-top: none;
+}

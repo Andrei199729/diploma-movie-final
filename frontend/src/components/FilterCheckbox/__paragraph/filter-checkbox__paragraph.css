@@ -1,0 +1,23 @@
+.filter-checkbox__paragraph {
+    margin: 0 0 0 14px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000000;
+}
+
+@media screen and (max-width: 768px) {
+    .filter-checkbox__paragraph {
+        margin: 0 16px 0 0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .filter-checkbox__paragraph {
+        font-size: 11px;
+        line-height: 18px;
+        margin-right: 13px;
+    }
+}

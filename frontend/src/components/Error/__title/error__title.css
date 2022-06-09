@@ -1,0 +1,18 @@
+.error__title {
+    margin: 0 0 5px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 140px;
+    line-height: 169px;
+    text-align: center;
+    color: #000000;
+}
+
+@media screen and (max-width: 320px) {
+    .error__title {
+        margin: 0 0 10px;
+        font-size: 80px;
+        line-height: 97px;
+    }
+}

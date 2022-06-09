@@ -1,0 +1,12 @@
+.form-authentication__signin {
+    max-width: 396px;
+    margin: 0 auto 70px;
+    text-align: center;
+}
+
+@media screen and (max-width: 320px) {
+    .form-authentication__signin {
+        max-width: 260px;
+        margin: 0 auto 30px;
+    }
+}

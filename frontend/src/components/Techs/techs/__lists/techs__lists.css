@@ -1,0 +1,24 @@
+.techs__lists {
+    margin: 0;
+    padding: 0 0 100px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(84px, 90px));
+    gap: 10px 10px;
+    list-style: none;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+    .techs__lists {
+        padding: 0 50px 90px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .techs__lists {
+        gap: 10px;
+        margin: 0 65px;
+        padding: 0 0 70px;
+    }
+}

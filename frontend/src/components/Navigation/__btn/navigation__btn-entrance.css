@@ -1,0 +1,18 @@
+.navigation__btn-entrance {
+    padding: 8px 20px;
+    color: #000000;
+    background-color: #2BE080;
+    border-radius: 3px;
+    transition: color .5s linear, box-shadow .5s linear;
+}
+
+.navigation__btn-entrance:hover {
+    color: #FFFFFF;
+    box-shadow: 0px 0px 22px #000000;
+}
+
+@media screen and (max-width: 320px) {
+    .navigation__btn-entrance {
+        padding: 5px 12px;
+    }
+}

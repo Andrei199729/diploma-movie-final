@@ -1,0 +1,13 @@
+.techs__background {
+    background-color: #F5F5F5;
+}
+
+.techs__background .section__container {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 320px) {
+    .techs__background {
+        background-color: #FFFFFF;
+    }
+}

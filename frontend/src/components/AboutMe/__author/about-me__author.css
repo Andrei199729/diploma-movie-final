@@ -1,0 +1,19 @@
+.about-me__author {
+    max-width: 270px;
+    max-height: 327px;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .about-me__author {
+        max-width: 230px;
+        max-height: 287px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-me__author {
+        max-width: 292px;
+        max-height: 352px;
+    }
+}

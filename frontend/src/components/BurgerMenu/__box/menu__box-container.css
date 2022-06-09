@@ -1,0 +1,22 @@
+.menu__box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 159px 0 92px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    max-width: 520px;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+@media screen and (max-width: 320px) {
+    .menu__box-container {
+        padding: 144px 0 48px;
+    }
+}

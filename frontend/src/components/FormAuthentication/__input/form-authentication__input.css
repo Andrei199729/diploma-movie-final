@@ -1,0 +1,21 @@
+.form-authentication__input{
+    border: none;
+    max-width: 100%;
+    padding: 15px;
+    margin: 0;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000000;
+    background-color: #F9F9F9;
+    border-radius: 8px;
+}
+    
+.form-authentication__input:focus,
+.form-authentication__input:focus-visible,
+.form-authentication__input:active {
+    outline: 1px solid #453737;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+}

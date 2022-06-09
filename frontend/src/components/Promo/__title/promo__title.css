@@ -1,0 +1,42 @@
+.promo__title {
+    max-width: 730px;
+    margin: 207px auto 246px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 768px) {
+    .promo__title {
+        max-width: 500px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .promo__title {
+        max-width: 400px;
+        font-size: 40px;
+        line-height: 48px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .promo__title {
+        max-width: 350px;
+        font-size: 35px;
+        line-height: 44px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .promo__title {
+        max-width: 300px;
+        font-size: 31px;
+        line-height: 39px;
+    }
+}

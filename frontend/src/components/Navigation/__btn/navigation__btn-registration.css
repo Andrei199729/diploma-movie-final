@@ -1,0 +1,15 @@
+.navigation__btn-registration {
+    margin-right: 30px;
+    color: #FFFFFF;
+    transition: color .5s linear;
+}
+
+.navigation__btn-registration:hover {
+    color: #000000;
+}
+
+@media screen and (max-width: 400px) {
+    .navigation__btn-registration {
+        margin-right: 13px;
+    }
+}
