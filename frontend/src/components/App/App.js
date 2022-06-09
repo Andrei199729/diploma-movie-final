@@ -92,7 +92,6 @@ function App() {
             localStorage.setItem("movies", JSON.stringify(movies));
             setSaveMovies(JSON.parse(localStorage.getItem("saveMovies")));
             setMovies(JSON.parse(localStorage.getItem("movies")));
-
             setLoaded(false);
           })
           .catch((err) => {
@@ -311,9 +310,16 @@ function App() {
         const durationMovieShort = movies.filter(
           (movie) => movie.duration <= 40
         );
+        const durationMovieShortSearch = filterMovies.filter(
+          (movie) => movie.duration <= 40
+        );
         localStorage.setItem(
           "durationMovieShort",
           JSON.stringify(durationMovieShort)
+        );
+        localStorage.setItem(
+          "durationMovieShort",
+          JSON.stringify(durationMovieShortSearch)
         );
         setShortMovies(JSON.parse(localStorage.getItem("durationMovieShort")));
       } else {
@@ -334,9 +340,17 @@ function App() {
           (movie) => movie.duration <= 40
         );
 
+        const durationMovieShortSaveSearch = saveFilterSaveMovies.filter(
+          (movie) => movie.duration <= 40
+        );
+
         localStorage.setItem(
           "durationMovieShortSave",
           JSON.stringify(durationMovieShortSave)
+        );
+        localStorage.setItem(
+          "durationMovieShortSaveSearch",
+          JSON.stringify(durationMovieShortSaveSearch)
         );
         setShortMoviesSave(
           JSON.parse(localStorage.getItem("durationMovieShortSave"))

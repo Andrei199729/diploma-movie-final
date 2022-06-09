@@ -26,6 +26,7 @@ function Movies(props) {
           saveMovies={props.saveMovies}
           handleDeleteSaveMovie={props.handleDeleteSaveMovie}
           onChecked={props.onCheckedFilms}
+          filterMovies={props.filterMovies}
         />
       )}
     </div>
