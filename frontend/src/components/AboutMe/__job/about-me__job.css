@@ -1,0 +1,29 @@
+.about-me__job {
+    margin: 18px 0 0 0;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    color: #000000;
+    mix-blend-mode: normal;
+}
+
+@media screen and (max-width: 768px) {
+    .about-me__job {
+        margin-top: 16px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+}
+
+@media screen and (max-width: 320px) {
+    .about-me__job {
+        margin-top: 20px;
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+}

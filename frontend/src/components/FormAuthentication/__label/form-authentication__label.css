@@ -1,0 +1,13 @@
+.form-authentication__label {
+    margin: 20px 0 10px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+}
+
+.form-authentication__label:first-child {
+    margin-top: 0;
+}

@@ -1,0 +1,23 @@
+.filter-checkbox__slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #EBEBEB;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.filter-checkbox__slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #F5F5F5;
+  -webkit-transition: .4s;
+  transition: .4s;
+}

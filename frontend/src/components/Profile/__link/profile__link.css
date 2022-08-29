@@ -1,0 +1,27 @@
+.profile__link {
+    text-decoration: none;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #EE3465;
+    transition: color .3s linear, font-size .3s linear;
+}
+
+.profile__link:hover {
+    color: #f3104d;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 320px) {
+    .profile__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .profile__link:hover {
+        font-size: 19px;
+    }
+}

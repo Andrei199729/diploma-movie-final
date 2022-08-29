@@ -1,0 +1,23 @@
+.movies-card__cross {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: none;
+    background-color: inherit;
+    background-image: url('../../../images/cross.svg');
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+    background-position: 52% 55%;
+    opacity: 0;
+    transition: opacity .3s linear;
+}
+
+.movies-card__text:hover .movies-card__cross {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.movies-card__cross:hover {
+    cursor: pointer;
+    background-image: url('../../../images/cross.svg');
+}

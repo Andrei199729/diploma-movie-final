@@ -1,0 +1,15 @@
+.header__logo-authentication {
+    margin: 70px 0 40px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .header__logo-authentication {
+        margin-top: 232px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .header__logo-authentication {
+        margin: 56px auto 50px;
+    }
+}

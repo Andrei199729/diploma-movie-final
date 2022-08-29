@@ -1,0 +1,15 @@
+.movies-card__time {
+    margin: 0 0 16px 16px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #A0A0A0;
+}
+
+@media screen and (max-width: 768px) {
+    .movies-card__time {
+        margin: 0 0 14px 14px;
+    }
+}

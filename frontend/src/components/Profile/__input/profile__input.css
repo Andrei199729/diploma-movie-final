@@ -1,0 +1,12 @@
+.profile__input {
+  padding: 0;
+  margin: 0;
+  border: none;
+  text-align: right;
+}
+
+.profile__input:focus,
+.profile__input:focus-visible,
+.profile__input:active {
+  outline: none;
+}

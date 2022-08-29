@@ -1,0 +1,24 @@
+.error__link {
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FF6838;
+    transition: color .3s linear, font-size .3s linear;
+}
+
+.error__link:hover {
+    color: #0c0300;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 320px) {
+    .error__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

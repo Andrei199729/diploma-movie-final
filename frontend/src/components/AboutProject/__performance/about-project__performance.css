@@ -1,0 +1,24 @@
+.about-project__performance {
+    max-width: 1280px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: minmax(100px, 228px) minmax(184px, 912px);
+    margin: 0 70px 110px;
+}
+
+@media screen and (max-width: 768px) {
+    .about-project__performance {
+        grid-template-columns: minmax(100px, 140px) minmax(100px, 528px);
+        margin: 0 50px 90px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-project__performance {
+        max-width: 1280px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: minmax(50px, 100px) minmax(92px, 184px);
+        margin: 0 18px 70px;
+    }
+}

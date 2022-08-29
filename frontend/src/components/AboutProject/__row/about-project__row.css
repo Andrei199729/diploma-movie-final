@@ -1,0 +1,23 @@
+.about-project__row {
+    display: flex;
+    margin: 70px 70px 110px;
+}
+
+@media screen and (max-width: 768px) {
+    .about-project__row {
+        margin: 70px 50px 93px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .about-project__row {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .about-project__row {
+        margin: 60px 18px;
+        flex-direction: column;
+    }
+}

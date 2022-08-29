@@ -1,0 +1,23 @@
+.techs__list {
+    max-width: 90px;
+    padding: 21px 0 22px;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    color: #000000;
+    background-color: #E8E8E8;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .techs__list {
+        padding: 21px 0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+}

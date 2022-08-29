@@ -1,0 +1,43 @@
+.form-authentication__btn {
+  max-width: 396px;
+  background-color: #FF6838;
+  border-radius: 3px;
+  border: none;
+  padding: 13px 0;
+  margin: 179px 0 16px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+  transition: background-color .3s linear;
+}
+
+.form-authentication__btn:hover {
+  background-color: #cb3d11;
+  cursor: pointer;
+}
+
+.form-authentication__btn:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+  .form-authentication__btn {
+    margin-top: 69px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .form-authentication__btn {
+    max-width: 260px;
+    padding: 15px 0;
+    margin: 157px 0 14px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

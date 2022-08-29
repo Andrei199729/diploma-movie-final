@@ -1,0 +1,5 @@
+@media screen and (max-width: 550px) {
+    .portfolio__project-span {
+        margin-right: 15px;
+    }
+}

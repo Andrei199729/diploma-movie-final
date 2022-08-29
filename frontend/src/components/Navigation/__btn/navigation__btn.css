@@ -1,0 +1,16 @@
+.navigation__btn {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    align-items: center;
+    text-decoration: none;
+    color: #000000;
+}
+
+@media screen and (max-width: 320px) {
+    .navigation__btn {
+        font-size: 10px;
+    }
+}

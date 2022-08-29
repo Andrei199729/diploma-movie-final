@@ -1,0 +1,17 @@
+.error-form__profile {
+  position: static;
+}
+
+@media screen and (max-width: 768px) {
+  .error-form {
+    top: 61px;
+    left: 0;
+  }
+}
+
+@media screen and (max-width: 564px) {
+  .error-form {
+    top: 50px;
+    left: 0;
+  }
+}
